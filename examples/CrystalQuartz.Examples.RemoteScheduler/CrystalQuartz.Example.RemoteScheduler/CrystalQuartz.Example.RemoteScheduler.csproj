@@ -84,7 +84,7 @@
       <Name>CrystalQuartz.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CrystalQuartz.ExampleJob\CrystalQuartz.ExampleJob.csproj">
-      <Project>{F6564536-F3E3-4BEE-9979-599022D65656}</Project>
+      <Project>{B7B5D352-C170-4C8B-AE74-198FD78BA5AB}</Project>
       <Name>CrystalQuartz.ExampleJob</Name>
     </ProjectReference>
   </ItemGroup>
