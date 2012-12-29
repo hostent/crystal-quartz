@@ -1,0 +1,16 @@
+<Project ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="CommonSettings.xml" />
+    <Import Project="Build.Targets" />
+
+    <PropertyGroup>
+        
+    </PropertyGroup>
+
+    <!-- Updates database to actual revision -->
+    <Target Name="BuildAndPackArtifacts">
+        <CallTarget Targets="BuildSolution"/>
+        <CallTarget Targets="BuildExamplesPacks"/>
+        <CallTarget Targets="BuildBinaryPacks"/>
+        <CallTarget Targets="BuildNuGetPacks"/>
+    </Target>
+</Project>

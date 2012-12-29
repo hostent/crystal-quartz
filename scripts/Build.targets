@@ -1,0 +1,87 @@
+<Project ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>
+
+  <PropertyGroup>
+  </PropertyGroup>
+
+  <Target Name="Init">
+    <RemoveDir Directories="$(ArtifactsDirectory)" />
+  </Target>
+  
+  <Target Name="BuildSolution" DependsOnTargets="Init">
+    <MSBuild Projects="$(SolutionProjectPath)" Targets="Build">
+    </MSBuild>
+  </Target>
+
+  <Target Name="BuildVersion" DependsOnTargets="">
+    <SvnVersion LocalPath="$(ProjectDirectory)" ToolPath="$(SvnToolsPath)">
+      <Output TaskParameter="Revision" PropertyName="VersionRevision" />
+    </SvnVersion>
+    <PropertyGroup>
+      <Version>$(VersionMajor).$(VersionMinor).$(VersionRevision)</Version>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="BuildNuGetPacks" DependsOnTargets="BuildVersion">
+    <MakeDir Directories="$(NuGetArtifacts)" Condition="!Exists('$(NuGetArtifacts)')" />
+
+    <Copy
+        SourceFiles="$(ArtifactsDirectory)\$(Configuration)\CrystalQuartz.Core.dll"
+        DestinationFolder="$(NuGetSrcSimple)\lib" />
+    <Copy
+        SourceFiles="$(ArtifactsDirectory)\$(Configuration)\CrystalQuartz.Web.dll"
+        DestinationFolder="$(NuGetSrcSimple)\lib" />
+    
+    <Copy
+        SourceFiles="$(ArtifactsDirectory)\$(Configuration)\CrystalQuartz.Core.dll"
+        DestinationFolder="$(NuGetSrcRemote)\lib" />
+    <Copy
+        SourceFiles="$(ArtifactsDirectory)\$(Configuration)\CrystalQuartz.Web.dll"
+        DestinationFolder="$(NuGetSrcRemote)\lib" />
+    
+    <Exec WorkingDirectory="$(NuGetSrcSimple)"
+          Command="$(NuGetToolsPath)\nuget.exe pack Package.nuspec -OutputDirectory $(NuGetArtifacts)" />
+    <Exec WorkingDirectory="$(NuGetSrcRemote)"
+          Command="$(NuGetToolsPath)\nuget.exe pack Package.nuspec -OutputDirectory $(NuGetArtifacts)" />
+  </Target>
+  
+  <Target Name="BuildExamplesPacks" DependsOnTargets="BuildVersion">
+    <ItemGroup>
+      <ExampleSourcesExclude Include="$(ExamplesRoot)\**\.svn\**" />
+      <ExampleSourcesExclude Include="$(ExamplesRoot)\**\obj\**" />
+      <ExampleSourcesExclude Include="$(ExamplesRoot)\**\bin\**" />
+      <ExampleSourcesExclude Include="$(ExamplesRoot)\**\*.csproj.user" />
+      <ExampleSourcesExclude Include="$(ExamplesRoot)\**\_ReSharper*\**" />
+      <ExampleSourcesExclude Include="$(ExamplesRoot)\**\*.user" />
+      <ExampleSourcesExclude Include="$(ExamplesRoot)\**\*.suo" />
+      
+      <ExamplesLibs Include="$(ArtifactsDirectory)\$(Configuration)\*.dll" />
+      
+    </ItemGroup>
+
+    <Copy
+        SourceFiles="@(ExamplesLibs)"
+        DestinationFiles="@(ExamplesLibs->'$(ExamplesRoot)\libs\%(RecursiveDir)%(Filename)%(Extension)')" />
+    
+    <ItemGroup>
+      <ExamplesFiles Include="$(ExamplesRoot)\**\*.*" Exclude="@(ExampleSourcesExclude)"/>
+    </ItemGroup>
+
+    <Zip Files="@(ExamplesFiles)"
+        WorkingDirectory="$(ExamplesRoot)"
+        ZipFileName="$(ArtifactsDirectory)\CrystalQuartz.Examples.$(Version).zip"
+        ZipLevel="9" />
+    
+  </Target>
+
+  <Target Name="BuildBinaryPacks" DependsOnTargets="BuildVersion">
+    <ItemGroup>
+      <ZipFilesBin Include="$(ArtifactsDirectory)\$(Configuration)\*.dll" />
+    </ItemGroup>
+    
+    <Zip Files="@(ZipFilesBin)"
+        WorkingDirectory="$(ArtifactsDirectory)\$(Configuration)"
+        ZipFileName="$(ArtifactsDirectory)\CrystalQuartz.$(Configuration).$(Version).zip"
+        ZipLevel="9" />
+  </Target>
+</Project>
