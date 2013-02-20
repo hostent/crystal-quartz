@@ -6,55 +6,27 @@
     using Quartz.Impl;
     using Quartz.Job;
     using CrystalQuartz.ExampleJob;
+    using Topshelf;
 
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Starting scheduler...");
 
-            //var properties = new NameValueCollection();
-            //properties["quartz.scheduler.instanceName"] = "RemoteServerSchedulerClient";
-
-            //// set thread pool info
-            //properties["quartz.threadPool.type"] = "Quartz.Simpl.SimpleThreadPool, Quartz";
-            //properties["quartz.threadPool.threadCount"] = "5";
-            //properties["quartz.threadPool.threadPriority"] = "Normal";
-
-            //// set remoting expoter
-            //properties["quartz.scheduler.exporter.type"] = "Quartz.Simpl.RemotingSchedulerExporter, Quartz";
-            //properties["quartz.scheduler.exporter.port"] = "555";
-            //properties["quartz.scheduler.exporter.bindName"] = "QuartzScheduler";
-            //properties["quartz.scheduler.exporter.channelType"] = "tcp";
-
-            var schedulerFactory = new StdSchedulerFactory();
-            var scheduler = schedulerFactory.GetScheduler();
-
-            // define the job and ask it to run
-            var map = new JobDataMap();
-            map.Put("msg", "Some message!");
-
-            var job = JobBuilder.Create<HelloJob>()
-                .WithIdentity("localJob", "default")
-                .UsingJobData(map).Build();
-
-            ICronTrigger trigger = (ICronTrigger)TriggerBuilder.Create()
-                                                    .WithIdentity("remotelyAddedTrigger", "default")
-                                                    .WithCronSchedule("/5 * * ? * *")
-                                                    .StartAt(DateTimeOffset.UtcNow)
-                                                    .ForJob(job)
-                                                    
-                                                    .Build();
-
-            //var trigger = new CronTrigger("remotelyAddedTrigger", "default", "localJob", "default", DateTime.UtcNow, null, "/5 * * ? * *");
-
-            // schedule the job
-            scheduler.ScheduleJob(job, trigger);
-
-            scheduler.Start();
-
-            Console.WriteLine("Scheduler has been started.");
-            Console.Read();
+            HostFactory.Run(x =>                                 //1
+            {
+                x.Service<SchedulerServer>(s =>                        //2
+                {
+                    s.ConstructUsing(name => new SchedulerServer());     //3
+                    s.WhenStarted(tc => tc.Start());              //4
+                    s.WhenStopped(tc => tc.Stop());               //5
+                });
+                x.RunAsLocalSystem();                            //6
+                //x.UseNLog();
+                x.SetDescription("SchedulerServer Topshelf Host");        //7
+                x.SetDisplayName("SchedulerServer");                       //8
+                x.SetServiceName("SchedulerServer");                       //9
+            });                                          
         }
     }
 }
