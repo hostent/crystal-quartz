@@ -1,23 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <publishData>
   <publishProfile publishUrl="E:\temp\RemoteScheduler" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
-    <file relUrl="Web.config" publishTime="12/29/2012 14:24:39" />
+    <file relUrl="Web.config" publishTime="12/29/2012 12:52:38" />
     <file relUrl="bin/C5.dll" publishTime="12/29/2012 12:16:07" />
-    <file relUrl="bin/CrystalQuartz.Example.RemoteScheduler.pdb" publishTime="02/20/2013 22:59:24" />
+    <file relUrl="bin/CrystalQuartz.Example.RemoteScheduler.pdb" publishTime="12/29/2012 12:53:12" />
     <file relUrl="bin/Quartz.pdb" publishTime="12/29/2012 12:16:07" />
-    <file relUrl="Scheduler.asmx" publishTime="02/20/2013 22:47:59" />
     <file relUrl="bin/NVelocity.dll" publishTime="01/15/2012 16:33:39" />
-    <file relUrl="bin/CrystalQuartz.ExampleJob.dll" publishTime="12/29/2012 12:53:11" />
+    <file relUrl="bin/Quartz.xml" publishTime="12/29/2012 12:16:07" />
     <file relUrl="bin/CrystalQuartz.Core.dll" publishTime="12/29/2012 12:53:11" />
-    <file relUrl="bin/CrystalQuartz.Web.dll" publishTime="02/20/2013 22:59:24" />
-    <file relUrl="bin/CrystalQuartz.Example.RemoteScheduler.dll" publishTime="02/20/2013 22:59:24" />
+    <file relUrl="bin/CrystalQuartz.Web.dll" publishTime="12/29/2012 12:53:11" />
+    <file relUrl="bin/CrystalQuartz.Example.RemoteScheduler.dll" publishTime="12/29/2012 12:53:12" />
     <file relUrl="bin/Quartz.dll" publishTime="12/29/2012 12:16:07" />
     <file relUrl="bin/Common.Logging.dll" publishTime="12/29/2012 12:16:07" />
-    <file relUrl="bin/CrystalQuartz.Web.pdb" publishTime="02/20/2013 22:59:24" />
+    <file relUrl="bin/CrystalQuartz.Web.pdb" publishTime="12/29/2012 12:53:11" />
     <file relUrl="bin/CrystalQuartz.ExampleJob.pdb" publishTime="12/29/2012 12:53:11" />
     <file relUrl="bin/NVelocity.xml" publishTime="01/15/2012 16:33:39" />
     <file relUrl="bin/CrystalQuartz.Core.pdb" publishTime="12/29/2012 12:53:11" />
     <file relUrl="Default.aspx" publishTime="01/15/2012 16:33:41" />
-    <file relUrl="bin/Quartz.xml" publishTime="12/29/2012 12:16:07" />
+    <file relUrl="bin/CrystalQuartz.ExampleJob.dll" publishTime="12/29/2012 12:53:11" />
   </publishProfile>
 </publishData>
