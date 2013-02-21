@@ -99,9 +99,7 @@
     <Compile Include="FrontController\ViewData.cs" />
     <Compile Include="FrontController\ViewRendering\IViewEngine.cs" />
     <Compile Include="FrontController\ViewRendering\VelocityViewEngine.cs" />
-    <Compile Include="GroupStatus.cs" />
     <Compile Include="Helpers\ExceptionHelper.cs" />
-    <Compile Include="JobSchedule.cs" />
     <Compile Include="Processors\MasterFiller.cs" />
     <Compile Include="Processors\OperationFiller.cs" />
     <Compile Include="FrontController\FrontControllerHandler.cs" />
@@ -121,7 +119,6 @@
     <Compile Include="Processors\Operations\StopSchedulerFiller.cs" />
     <Compile Include="Processors\Operations\TriggerJobOperationFiller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scheduler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrystalQuartz.Core\CrystalQuartz.Core.csproj">
